@@ -19,9 +19,12 @@ public final class RestAuthEntryPoint
         final AuthenticationException authException){
         System.out.println("Inside AuthenticationEntryPoint.commence");
         try {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED,
-                "Unauthorized");
-        } catch (IOException e) {
+            if(authException != null) {
+                authException.printStackTrace();
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED,
+                        "Unauthorized");
+            }
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
